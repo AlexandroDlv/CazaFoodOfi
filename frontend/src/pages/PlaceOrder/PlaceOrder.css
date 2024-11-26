@@ -60,7 +60,7 @@
     cursor: pointer;
 }
 .payment .payment-option:hover{
-    background-color:  #ffe7de;
+    background-color:  #b6ee95;
 }
 
 @media (max-width:700px) {
