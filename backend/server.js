@@ -7,19 +7,16 @@ import 'dotenv/config'
 import cartRouter from "./routes/cartRoute.js"
 import orderRouter from "./routes/orderRoute.js"
 
-// app config
 const app = express()
 const port = process.env.PORT || 4000;
 
-
-// middlewares
 app.use(express.json())
 app.use(cors())
 
-// db connection
+//conexion de la base de datos
 connectDB()
 
-// api endpoints
+// puntos finales de la api
 app.use("/api/user", userRouter)
 app.use("/api/food", foodRouter)
 app.use("/images",express.static('uploads'))

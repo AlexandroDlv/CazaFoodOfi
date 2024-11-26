@@ -3,12 +3,10 @@ import userModel from "../models/userModel.js"
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-//config variables
 const currency = "usd";
 const deliveryCharge = 5;
 const frontend_URL = 'http://localhost:5173';
 
-// Placing User Order for Frontend using stripe
 const placeOrder = async (req, res) => {
 
     try {
@@ -58,7 +56,6 @@ const placeOrder = async (req, res) => {
     }
 }
 
-// Placing User Order for Frontend using stripe
 const placeOrderCod = async (req, res) => {
 
     try {
@@ -80,7 +77,6 @@ const placeOrderCod = async (req, res) => {
     }
 }
 
-// Listing Order for Admin panel
 const listOrders = async (req, res) => {
     try {
         const orders = await orderModel.find({});
@@ -91,7 +87,6 @@ const listOrders = async (req, res) => {
     }
 }
 
-// User Orders for Frontend
 const userOrders = async (req, res) => {
     try {
         const orders = await orderModel.find({ userId: req.body.userId });

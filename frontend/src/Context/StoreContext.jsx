@@ -3,6 +3,8 @@ import { food_list, menu_list } from "../assets/assets";
 import axios from "axios";
 export const StoreContext = createContext(null);
 
+//aqui se maneja el carrito
+
 const StoreContextProvider = (props) => {
 
     const url = "http://localhost:4000"
