@@ -3,12 +3,12 @@ import bcrypt from "bcrypt";
 import validator from "validator";
 import userModel from "../models/userModel.js";
 
-//create token
+//esto crea un token
 const createToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET);
 }
 
-//login user
+//pa logear al usuario
 const loginUser = async (req,res) => {
     const {email, password} = req.body;
     try{
@@ -32,17 +32,15 @@ const loginUser = async (req,res) => {
     }
 }
 
-//register user
+//pa registrar al ususario
 const registerUser = async (req,res) => {
     const {name, email, password} = req.body;
     try{
-        //check if user already exists
         const exists = await userModel.findOne({email})
         if(exists){
             return res.json({success:false,message: "Este usuario ya existe"})
         }
-
-        // validating email format & strong password
+        
         if(!validator.isEmail(email)){
             return res.json({success:false,message: "Ingrese un usuario válido"})
         }
@@ -50,8 +48,7 @@ const registerUser = async (req,res) => {
             return res.json({success:false,message: "Ingrese una contraseña fuerte"})
         }
 
-        // hashing user password
-        const salt = await bcrypt.genSalt(10); // the more no. round the more time it will take
+        const salt = await bcrypt.genSalt(10); 
         const hashedPassword = await bcrypt.hash(password, salt)
 
         const newUser = new userModel({name, email, password: hashedPassword})
