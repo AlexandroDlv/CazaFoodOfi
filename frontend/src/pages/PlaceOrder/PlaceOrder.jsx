@@ -23,22 +23,22 @@ const PlaceOrder = () => {
   const { getTotalCartAmount, token, food_list, cartItems, url, setCartItems, currency, deliveryCharge } = useContext(StoreContext);
   const navigate = useNavigate();
 
-  // Función para manejar cambios en los campos del formulario
+
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  // Función para calcular el total del carrito más el cargo de envío
+
   const calculateTotal = () => getTotalCartAmount() + (getTotalCartAmount() === 0 ? 0 : deliveryCharge);
 
-  // Función para crear los items del pedido
+  
   const createOrderItems = () => {
     return food_list.filter(item => cartItems[item._id] > 0)
                     .map(item => ({ ...item, quantity: cartItems[item._id] }));
   };
 
-  // Función para realizar la orden
+
   const placeOrder = async (e) => {
     e.preventDefault();
 
@@ -64,7 +64,7 @@ const PlaceOrder = () => {
     }
   };
 
-  // Validación para asegurar que el usuario está autenticado y tiene items en el carrito
+
   useEffect(() => {
     if (!token) {
       toast.error("To place an order, sign in first");
