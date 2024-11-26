@@ -6,7 +6,7 @@ import { assets, url, currency } from '../../assets/assets';
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Agregamos el estado isLoading
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchAllOrders = async () => {
     try {
@@ -65,7 +65,7 @@ const Order = () => {
       setIsLoading(true);
       const response = await axios.post(`${url}/api/order/status`, {
         orderId,
-        status: 'Cancelled'
+        status: 'Cancelado'
       });
       if (response.data.success) {
         await fetchAllOrders();
@@ -113,18 +113,18 @@ const Order = () => {
               <select 
                 onChange={(e) => statusHandler(e, order._id)} 
                 value={order.status} 
-                disabled={order.status === 'Cancelled' || isLoading}
+                disabled={order.status === 'Cancelado' || isLoading}
               >
-                <option value="Food Processing">Elaborando comida</option>
-                <option value="Out for delivery">En salida para entrega</option>
-                <option value="Delivered">Entregado</option>
-                <option value="Cancelled">Cancelado</option>
+                <option value="Elaborando comida">Elaborando comida</option>
+                <option value="En salida para entrega">En salida para entrega</option>
+                <option value="Entregado">Entregado</option>
+                <option value="Cancelado">Cancelado</option>
               </select>
               
               <button 
                 onClick={() => handleCancelOrder(order._id)}
                 className="cancel-btn"
-                disabled={order.status === 'Delivered' || order.status === 'Cancelled' || isLoading}
+                disabled={order.status === 'Entregado' || order.status === 'Cancelado' || isLoading}
               >
                 Cancelar
               </button>
