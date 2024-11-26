@@ -130,4 +130,31 @@ const verifyOrder = async (req, res) => {
 
 }
 
-export { placeOrder, listOrders, userOrders, updateStatus, verifyOrder, placeOrderCod }
+const deleteOrder = async (req, res) => {
+    const { orderId } = req.params;
+    try {
+        const deletedOrder = await orderModel.findByIdAndDelete(orderId);
+        
+        if (deletedOrder) {
+            res.json({ 
+                success: true, 
+                message: "Pedido eliminado correctamente"
+            });
+        } else {
+            res.json({ 
+                success: false, 
+                message: "No se encontró el pedido" 
+            });
+        }
+    } catch (error) {
+        console.error('Error al eliminar el pedido:', error);
+        res.json({ 
+            success: false, 
+            message: "Error al eliminar el pedido",
+            error: error.message 
+        });
+    }
+};
+
+
+export { placeOrder, listOrders, userOrders, updateStatus, verifyOrder, placeOrderCod, deleteOrder }

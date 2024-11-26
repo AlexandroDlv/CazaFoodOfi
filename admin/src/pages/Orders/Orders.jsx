@@ -5,30 +5,78 @@ import axios from 'axios';
 import { assets, url, currency } from '../../assets/assets';
 
 const Order = () => {
-
   const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // Agregamos el estado isLoading
 
   const fetchAllOrders = async () => {
-    const response = await axios.get(`${url}/api/order/list`)
-    if (response.data.success) {
-      setOrders(response.data.data.reverse());
-    }
-    else {
-      toast.error("Error")
+    try {
+      const response = await axios.get(`${url}/api/order/list`)
+      if (response.data.success) {
+        setOrders(response.data.data.reverse());
+      } else {
+        toast.error("Error al cargar los pedidos")
+      }
+    } catch (error) {
+      toast.error("Error al cargar los pedidos");
     }
   }
 
   const statusHandler = async (event, orderId) => {
-    console.log(event, orderId);
-    const response = await axios.post(`${url}/api/order/status`, {
-      orderId,
-      status: event.target.value
-    })
-    if (response.data.success) {
-      await fetchAllOrders();
+    try {
+      setIsLoading(true);
+      const response = await axios.post(`${url}/api/order/status`, {
+        orderId,
+        status: event.target.value
+      })
+      if (response.data.success) {
+        await fetchAllOrders();
+        toast.success("Estado actualizado correctamente");
+      }
+    } catch (error) {
+      toast.error("Error al actualizar el estado");
+    } finally {
+      setIsLoading(false);
     }
   }
 
+  const handleDeleteOrder = async (orderId) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
+      try {
+        setIsLoading(true);
+        const response = await axios.delete(`${url}/api/order/delete/${orderId}`);
+        
+        if (response.data.success) {
+          await fetchAllOrders();
+          toast.success("Pedido eliminado correctamente");
+        } else {
+          toast.error(response.data.message || "No se pudo eliminar el pedido");
+        }
+      } catch (error) {
+        console.error('Error al eliminar:', error);
+        toast.error(error.response?.data?.message || "Error al eliminar el pedido");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  }
+
+  const handleCancelOrder = async (orderId) => {
+    try {
+      setIsLoading(true);
+      const response = await axios.post(`${url}/api/order/status`, {
+        orderId,
+        status: 'Cancelled'
+      });
+      if (response.data.success) {
+        await fetchAllOrders();
+        toast.success("Pedido cancelado correctamente");
+      }
+    } catch (error) {
+      toast.error("Error al cancelar el pedido");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
     fetchAllOrders();
@@ -61,11 +109,34 @@ const Order = () => {
             </div>
             <p>Elementos : {order.items.length}</p>
             <p>{currency}{order.amount}</p>
-            <select onChange={(e) => statusHandler(e, order._id)} value={order.status} name="" id="">
-              <option value="Food Processing">Elaborando comida</option>
-              <option value="Out for delivery">En salida para entrega</option>
-              <option value="Delivered">Entregado</option>
-            </select>
+            <div className="order-actions">
+              <select 
+                onChange={(e) => statusHandler(e, order._id)} 
+                value={order.status} 
+                disabled={order.status === 'Cancelled' || isLoading}
+              >
+                <option value="Food Processing">Elaborando comida</option>
+                <option value="Out for delivery">En salida para entrega</option>
+                <option value="Delivered">Entregado</option>
+                <option value="Cancelled">Cancelado</option>
+              </select>
+              
+              <button 
+                onClick={() => handleCancelOrder(order._id)}
+                className="cancel-btn"
+                disabled={order.status === 'Delivered' || order.status === 'Cancelled' || isLoading}
+              >
+                Cancelar
+              </button>
+              
+              <button 
+                onClick={() => handleDeleteOrder(order._id)}
+                className="delete-btn"
+                disabled={isLoading}
+              >
+                Eliminar
+              </button>
+            </div>
           </div>
         ))}
       </div>
