@@ -27,7 +27,7 @@ const MyOrders = () => {
         {data.map((order,index)=>{
           return (
             <div key={index} className='my-orders-order'>
-                <img src={assets.parcel_icon} alt="" />
+                <img src={assets.pedidocomplete} alt="Pedido completado" />
                 <p>{order.items.map((item,index)=>{
                   if (index === order.items.length-1) {
                     return item.name+" x "+item.quantity
@@ -40,7 +40,7 @@ const MyOrders = () => {
                 <p>{currency}{order.amount}.00</p>
                 <p>Elementos: {order.items.length}</p>
                 <p><span>&#x25cf;</span> <b>{order.status}</b></p>
-                <button onClick={fetchOrders}>Track Order</button>
+                <button onClick={fetchOrders}>Seguir pedido</button>
             </div>
           )
         })}

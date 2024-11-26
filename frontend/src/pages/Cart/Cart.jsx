@@ -34,25 +34,17 @@ const Cart = () => {
       </div>
       <div className="cart-bottom">
         <div className="cart-total">
-          <h2>Total Carrito</h2>
+          <h2>Total de pedido</h2>
           <div>
             <div className="cart-total-details"><p>Subtotal</p><p>{currency}{getTotalCartAmount()}</p></div>
             <hr />
-            <div className="cart-total-details"><p>Delivery Fee</p><p>{currency}{getTotalCartAmount()===0?0:deliveryCharge}</p></div>
+            <div className="cart-total-details"><p>Costo de envío</p><p>{currency}{getTotalCartAmount()===0?0:deliveryCharge}</p></div>
             <hr />
             <div className="cart-total-details"><b>Total</b><b>{currency}{getTotalCartAmount()===0?0:getTotalCartAmount()+deliveryCharge}</b></div>
           </div>
-          <button onClick={()=>navigate('/order')}>PROCEDER AL PAGO</button>
+          <button onClick={()=>navigate('/order')}>REALIZAR EL PAGO</button>
         </div>
-        <div className="cart-promocode">
-          <div>
-            <p>Si tienes un codigo promocional, ingresalo aqui</p>
-            <div className='cart-promocode-input'>
-              <input type="text" placeholder='codigo promocional'/>
-              <button>Enviar</button>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </div>
   )

@@ -11,6 +11,8 @@ import menu_6 from './menu_6.jpg'
 import menu_7 from './menu_7.jpg'
 import menu_8 from './menu_8.jpeg'
 import search_icon from './search_icon.png'
+import pedidocomplete from './pedidocomplete.png';
+
 
 import food_1 from './food_1.jpg'
 import food_10 from './food_10.png'
@@ -66,6 +68,7 @@ import un_checked from './un_checked.png'
 export const assets = {
     logo,
     logodos,
+    pedidocomplete,
     basket_icon,
     header_img,
     search_icon,
