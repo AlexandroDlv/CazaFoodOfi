@@ -60,14 +60,14 @@ const PlaceOrder = () => {
         navigate("/myorders");
       }
     } else {
-      toast.error("Something Went Wrong");
+      toast.error("Algo salio mal");
     }
   };
 
   // Validación para asegurar que el usuario está autenticado y tiene items en el carrito
   useEffect(() => {
     if (!token) {
-      toast.error("To place an order, sign in first");
+      toast.error("Inicia sesión para poder realizar un pedido");
       navigate('/cart');
     } else if (getTotalCartAmount() === 0) {
       navigate('/cart');
