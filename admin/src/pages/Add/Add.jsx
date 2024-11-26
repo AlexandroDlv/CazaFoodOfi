@@ -75,7 +75,7 @@ const Add = () => {
                         <select name='category' onChange={onChangeHandler} >
                             <option value="Ensalada">Ensalada</option>
                             <option value="Burritos">Burritos</option>
-                            <option value="Montados">Montados</option>
+                            <option value="Hamburguesas">Hamburguesas</option>
                             <option value="Sandwich">Sandwich</option>
                             <option value="Tortas">Tortas</option>
                             <option value="Chilaquiles">Chilaquiles</option>
