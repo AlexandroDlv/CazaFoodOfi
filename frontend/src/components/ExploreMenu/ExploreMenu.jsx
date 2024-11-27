@@ -9,7 +9,11 @@ const ExploreMenu = ({category,setCategory}) => {
   return (
     <div className='explore-menu' id='explore-menu'>
       <h1>Explora nuestro menú</h1>
-      <p className='explore-menu-text'>Nuestro menú está diseñado para satisfacer todos los antojos y necesidades de la comunidad universitaria, ofreciendo una gran variedad de opciones nutritivas, rápidas y deliciosas. Desde desayunos completos para arrancar el día hasta comidas y snacks ideales para recargar energía entre clases, en CazaFood encontrarás una selección de platillos frescos y bien preparados.</p>
+      <p className='explore-menu-text'>Nuestro menú está diseñado para satisfacer todos los antojos y necesidades de 
+                                      la comunidad universitaria, ofreciendo una gran variedad de opciones nutritivas, 
+                                      rápidas y deliciosas. Desde desayunos completos para arrancar el día hasta comidas 
+                                      y snacks ideales para recargar energía entre clases, en CazaFood encontrarás una 
+                                      selección de platillos frescos y bien preparados.</p>
       <div className="explore-menu-list">
         {menu_list.map((item,index)=>{
             return (
