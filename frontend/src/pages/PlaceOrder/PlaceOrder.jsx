@@ -84,7 +84,7 @@ const PlaceOrder = () => {
         </div>
         <input type="email" name='email' onChange={onChangeHandler} value={data.email} placeholder='Dirección de correo electrónico' required />
         <input type="text" name='street' onChange={onChangeHandler} value={data.street} placeholder='Salon' required />
-        <input type="text" name='phone' onChange={onChangeHandler} value={data.phone} placeholder='Numero' required />
+        <input type="text" name='phone' onChange={onChangeHandler} value={data.phone} placeholder='Numero de telefono' required />
       </div>
       <div className="place-order-right">
         <div className="cart-total">
